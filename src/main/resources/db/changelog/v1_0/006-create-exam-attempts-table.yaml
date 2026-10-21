@@ -1,0 +1,59 @@
+databaseChangeLog:
+  - changeSet:
+      id: 006-create-exam-attempts-table-2026-10-21
+      author: Hamid Guluzadeh
+      changes:
+        - createTable:
+            tableName: exam_attempts
+            columns:
+              - column:
+                  name: id
+                  type: VARCHAR(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: user_id
+                  type: VARCHAR(36)
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_attempts_user
+                    references: users(id)
+
+              - column:
+                  name: exam_id
+                  type: VARCHAR(36)
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_attempts_exam
+                    references: exams(id)
+
+              - column:
+                  name: start_time
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: end_time
+                  type: TIMESTAMP
+
+              - column:
+                  name: score
+                  type: DOUBLE
+
+              - column:
+                  name: status
+                  type: VARCHAR(20)
+                  defaultValue: ONGOING
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false

@@ -1,0 +1,46 @@
+databaseChangeLog:
+  - changeSet:
+      id: 004-create-questions-table-2026-10-21
+      author: Hamid Guluzadeh
+      changes:
+        - createTable:
+            tableName: questions
+            columns:
+              - column:
+                  name: id
+                  type: VARCHAR(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: exam_id
+                  type: VARCHAR(36)
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_questions_exam
+                    references: exams(id)
+
+              - column:
+                  name: content
+                  type: TEXT
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: points
+                  type: INT
+                  defaultValueNumeric: 1
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP

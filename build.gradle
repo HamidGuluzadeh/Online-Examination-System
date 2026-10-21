@@ -43,7 +43,7 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-liquibase-test'
 	testImplementation 'org.springframework.boot:spring-boot-starter-security-test'
 	testImplementation 'org.springframework.boot:spring-boot-starter-validation-test'
-	testImplementation 'org.springframework.boot:spring-boot-starter-web-test'
+	testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
 
 	testCompileOnly 'org.projectlombok:lombok'
 

@@ -1,0 +1,46 @@
+databaseChangeLog:
+  - changeSet:
+      id: 005-create-options-table-2026-10-21
+      author: Hamid Guluzadeh
+      changes:
+        - createTable:
+            tableName: options
+            columns:
+              - column:
+                  name: id
+                  type: VARCHAR(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: question_id
+                  type: VARCHAR(36)
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_options_question
+                    references: questions(id)
+
+              - column:
+                  name: content
+                  type: TEXT
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: is_correct
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
