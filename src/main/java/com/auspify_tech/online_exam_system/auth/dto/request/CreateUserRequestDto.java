@@ -3,7 +3,6 @@ package com.auspify_tech.online_exam_system.auth.dto.request;
 import com.auspify_tech.online_exam_system.auth.model.UserRole;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public record CreateUserRequestDto(@NotBlank(message = "Username cannot be blank")
@@ -19,10 +18,12 @@ public record CreateUserRequestDto(@NotBlank(message = "Username cannot be blank
                                    @Size(min = 8, message = "Password must be at least 8 characters long")
                                    String password,
                                    @NotBlank(message = "Phone number cannot be blank")
+                                   @Size(max = 20, message = "Password cannot exceed 20 characters")
                                    String phoneNumber,
+                                   @NotBlank(message = "Email cannot be blank")
                                    @Email(message = "Invalid email format")
                                    String email,
-                                   @NotNull(message = "Role cannot be null")
+                                   @NotBlank(message = "User role cannot be empty!")
                                    UserRole role) {
 
 }

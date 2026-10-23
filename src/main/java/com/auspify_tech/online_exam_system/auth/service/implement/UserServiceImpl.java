@@ -7,13 +7,11 @@ import com.auspify_tech.online_exam_system.auth.dto.request.UpdateUserRequestDto
 import com.auspify_tech.online_exam_system.auth.dto.response.UserResponseDto;
 import com.auspify_tech.online_exam_system.auth.entity.UserEntity;
 import com.auspify_tech.online_exam_system.auth.mapper.UserMapper;
+import com.auspify_tech.online_exam_system.auth.model.UserRole;
 import com.auspify_tech.online_exam_system.auth.model.UserStatus;
 import com.auspify_tech.online_exam_system.auth.repository.UserRepository;
 import com.auspify_tech.online_exam_system.auth.service.UserService;
-import com.auspify_tech.online_exam_system.common.exception.BadRequestException;
-import com.auspify_tech.online_exam_system.common.exception.ConflictException;
-import com.auspify_tech.online_exam_system.common.exception.ResourceAlreadyExistsException;
-import com.auspify_tech.online_exam_system.common.exception.ResourceNotFoundException;
+import com.auspify_tech.online_exam_system.common.exception.*;
 import jakarta.transaction.Transactional;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -73,6 +71,10 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public UserResponseDto createUser(CreateUserRequestDto createUserRequestDto) {
+        if (createUserRequestDto.role().equals(UserRole.ADMIN)) {
+            throw new UnauthorizedException("User with ADMIN role cannot be created!");
+        }
+
         if (userRepository.existsByUsername(createUserRequestDto.username())) {
             throw new ResourceAlreadyExistsException("User with username " +
                     createUserRequestDto.username() + " already exists!");
@@ -103,6 +105,10 @@ public class UserServiceImpl implements UserService {
     public UserResponseDto updateUser(String id, UpdateUserRequestDto updateUserRequestDto) {
         UserEntity userEntity = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found!"));
+
+        if (!userEntity.getStatus().equals(UserStatus.ACTIVE)) {
+            throw new BadRequestException("User is not in ACTIVE status!");
+        }
 
         if (userRepository.existsByUsernameAndIdNot(updateUserRequestDto.username(), id)) {
             throw new ResourceAlreadyExistsException("User with username " +
@@ -143,6 +149,10 @@ public class UserServiceImpl implements UserService {
         UserEntity userEntity = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found!"));
 
+        if (!userEntity.getStatus().equals(UserStatus.ACTIVE)) {
+            throw new BadRequestException("User is not in ACTIVE status!");
+        }
+
         if (passwordEncoder.matches(resetPasswordRequestDto.newPassword(), userEntity.getPassword())) {
             throw new ConflictException("New password is the same with old password!");
         }
@@ -162,6 +172,10 @@ public class UserServiceImpl implements UserService {
 
         UserEntity userEntity = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found!"));
+
+        if (!userEntity.getStatus().equals(UserStatus.ACTIVE)) {
+            throw new BadRequestException("User is not in ACTIVE status!");
+        }
 
         if (!passwordEncoder.matches(changePasswordRequestDto.oldPassword(), userEntity.getPassword())) {
             throw new BadRequestException("Old password is incorrect!");
