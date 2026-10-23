@@ -22,9 +22,9 @@ public interface UserService {
 
     UserResponseDto updateUser(String id, UpdateUserRequestDto updateUserRequestDto);
 
-    void changeStatus(String employeeCode, UserStatus userStatus);
+    void changeStatus(String id, UserStatus userStatus);
 
-    void resetPassword(String employeeCode, ResetPasswordRequestDto resetPasswordRequestDto);
+    void resetPassword(String id, ResetPasswordRequestDto resetPasswordRequestDto);
 
     void changeMyPassword(ChangePasswordRequestDto changePasswordRequestDto);
 

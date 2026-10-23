@@ -4,9 +4,10 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 public record ResetPasswordRequestDto(@NotBlank(message = "New password cannot be blank")
-                                      @Size(min = 8, message = "New password must be at least 8 characters long")
+                                      @Size(min = 8, message = "Password must be at least 8 characters long")
                                       String newPassword,
-                                      @NotBlank(message = "Confirm password cannot be blank")
+                                      @NotBlank(message = "Password cannot be blank")
+                                      @Size(min = 8, message = "Password must be at least 8 characters long")
                                       String confirmPassword) {
 
 }
