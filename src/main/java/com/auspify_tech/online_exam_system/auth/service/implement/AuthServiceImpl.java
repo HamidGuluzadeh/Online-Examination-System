@@ -15,6 +15,7 @@ import com.auspify_tech.online_exam_system.common.exception.BadRequestException;
 import com.auspify_tech.online_exam_system.common.exception.ResourceAlreadyExistsException;
 import com.auspify_tech.online_exam_system.common.exception.ResourceNotFoundException;
 import com.auspify_tech.online_exam_system.common.exception.UnauthorizedException;
+import jakarta.transaction.Transactional;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -58,6 +59,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
+    @Transactional
     public AuthResponseDto refresh(RefreshRequestDto refreshRequestDto) {
         String hashedToken = jwtService.hashToken(refreshRequestDto.refreshToken());
 
@@ -83,6 +85,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
+    @Transactional
     public void logout() {
         String userId = SecurityContextHolder.getContext().getAuthentication().getName();
 
