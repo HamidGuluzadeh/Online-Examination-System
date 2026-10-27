@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-add-audit-columns-to-exams-table-2026-10-27
+      author: Hamid Guluzadeh
+      changes:
+        - addColumn:
+            tableName: exams
+            columns:
+              - column:
+                  name: created_by
+                  type: VARCHAR(36)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: updated_by
+                  type: VARCHAR(36)
