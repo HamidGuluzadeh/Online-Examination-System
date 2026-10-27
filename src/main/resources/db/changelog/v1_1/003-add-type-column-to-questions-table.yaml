@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: 003-add-type-column-to-questions-table-2026-10-27
+      author: Hamid Guluzadeh
+      changes:
+        - addColumn:
+            tableName: questions
+            columns:
+              - column:
+                  name: question_type
+                  type: VARCHAR(15)
+                  constraints:
+                    nullable: false

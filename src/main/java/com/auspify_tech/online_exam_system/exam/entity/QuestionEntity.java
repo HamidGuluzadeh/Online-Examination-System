@@ -1,5 +1,6 @@
 package com.auspify_tech.online_exam_system.exam.entity;
 
+import com.auspify_tech.online_exam_system.exam.model.QuestionType;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -31,6 +32,10 @@ public class QuestionEntity {
 
     @Column(name = "points", nullable = false)
     Integer points;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "question_type", length = 15, nullable = false)
+    QuestionType questionType;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)

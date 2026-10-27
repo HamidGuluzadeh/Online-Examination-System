@@ -1,0 +1,18 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002-add-status-column-to-exams-table-2026-10-27
+      author: Hamid Guluzadeh
+      changes:
+        - dropColumn:
+            tableName: exams
+            columnName: is_active
+
+        - addColumn:
+            tableName: exams
+            columns:
+              - column:
+                  name: status
+                  type: VARCHAR(10)
+                  defaultValue: 'DRAFT'
+                  constraints:
+                    nullable: false

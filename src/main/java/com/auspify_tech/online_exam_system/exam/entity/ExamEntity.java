@@ -1,5 +1,6 @@
 package com.auspify_tech.online_exam_system.exam.entity;
 
+import com.auspify_tech.online_exam_system.exam.model.ExamStatus;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -31,8 +32,9 @@ public class ExamEntity {
     @Column(name = "duration_minutes", nullable = false)
     Integer durationMinutes;
 
-    @Column(name = "is_active", nullable = false)
-    Boolean isActive;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", length = 10, nullable = false)
+    ExamStatus status;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
