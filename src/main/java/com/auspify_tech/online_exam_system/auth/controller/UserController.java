@@ -65,7 +65,7 @@ public class UserController {
         return new ResponseEntity<>(successDto, HttpStatus.OK);
     }
 
-    @PostMapping("/new")
+    @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Create a new user")
     public ResponseEntity<SuccessDto<UserResponseDto>> createUser(@RequestBody @Valid CreateUserRequestDto createUserRequestDto) {
