@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public record CreateOptionRequestDto(@NotBlank(message = "Option text cannot be blank")
-                                     String text,
+                                     String content,
                                      @NotNull(message = "Correctness flag (isCorrect) must be provided")
                                      Boolean isCorrect) {
 

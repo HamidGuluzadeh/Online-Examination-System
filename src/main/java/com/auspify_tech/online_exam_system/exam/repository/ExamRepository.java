@@ -14,6 +14,4 @@ public interface ExamRepository extends JpaRepository<ExamEntity, String> {
 
     Page<ExamEntity> findAllByCreatedBy(String id, Pageable pageable);
 
-    boolean existsByTitleIgnoreCase(String title);
-
 }

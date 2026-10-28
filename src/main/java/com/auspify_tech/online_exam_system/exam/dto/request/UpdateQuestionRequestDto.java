@@ -1,18 +1,16 @@
 package com.auspify_tech.online_exam_system.exam.dto.request;
 
+import com.auspify_tech.online_exam_system.exam.model.QuestionType;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
 
-public record UpdateQuestionRequestDto(@NotBlank(message = "Question text cannot be blank")
-                                       String text,
-                                       @NotNull(message = "Points are required")
+public record UpdateQuestionRequestDto(String content,
                                        @Min(value = 1, message = "Points must be at least 1")
                                        Integer points,
+                                       QuestionType questionType,
                                        @NotEmpty(message = "A question must have options")
                                        List<@Valid CreateOptionRequestDto> options) {
 
